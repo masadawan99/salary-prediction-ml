@@ -16,170 +16,211 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-html, body, [class*="css"] {
+*, html, body, [class*="css"] {
     font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
 }
 
-/* Dark gradient background */
+/* ── App background ── */
 .stApp {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background-color: #0d0d0d;
     min-height: 100vh;
 }
 
-/* Header card */
-.header-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 20px;
-    padding: 32px 36px 24px;
-    margin-bottom: 28px;
-    backdrop-filter: blur(12px);
+/* ── Hide Streamlit chrome ── */
+#MainMenu, footer, header { visibility: hidden; }
+
+/* ── Header ── */
+.header-wrap {
+    border-bottom: 1px solid #1f1f1f;
+    padding: 36px 0 28px;
     text-align: center;
+    margin-bottom: 32px;
 }
-.header-card h1 {
-    color: #ffffff;
+.header-wrap h1 {
+    color: #f1f1f1;
     font-size: 2rem;
     font-weight: 700;
     margin: 0 0 6px;
     letter-spacing: -0.5px;
 }
-.header-card .subtitle {
-    color: rgba(255,255,255,0.55);
-    font-size: 0.9rem;
-    margin: 0;
+.header-wrap .sub {
+    color: #6b7280;
+    font-size: 0.88rem;
+    margin: 0 0 16px;
+}
+.badge-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 12px;
 }
 .badge {
     display: inline-block;
-    background: linear-gradient(90deg, #6c63ff, #a78bfa);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 4px 14px;
-    border-radius: 20px;
-    margin-top: 12px;
-    letter-spacing: 0.4px;
-}
-
-/* Form card */
-.form-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    padding: 30px 32px;
-    backdrop-filter: blur(10px);
-    margin-bottom: 24px;
-}
-.form-card h3 {
-    color: #e2e8f0;
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0 0 20px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    color: #a3a3a3;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 6px;
     letter-spacing: 0.3px;
 }
-
-/* Streamlit label override */
-label, .stSelectbox label, .stNumberInput label, .stSlider label {
-    color: rgba(255,255,255,0.75) !important;
-    font-size: 0.85rem !important;
-    font-weight: 500 !important;
+.badge.accent {
+    background: #18181b;
+    border-color: #7c3aed;
+    color: #a78bfa;
 }
 
-/* Input fields */
+/* ── Section label ── */
+.section-label {
+    color: #9ca3af;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin: 0 0 14px;
+}
+
+/* ── Form panel ── */
+.form-panel {
+    background: #111111;
+    border: 1px solid #1f1f1f;
+    border-radius: 14px;
+    padding: 28px 28px 20px;
+    margin-bottom: 16px;
+}
+
+/* ── Streamlit label overrides ── */
+label,
+.stSelectbox label,
+.stNumberInput label,
+.stSlider label {
+    color: #9ca3af !important;
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.7px !important;
+    margin-bottom: 4px !important;
+}
+
+/* ── Input / select fields ── */
 .stSelectbox > div > div,
 .stNumberInput > div > div > input,
 .stTextInput > div > div > input {
-    background: rgba(255,255,255,0.08) !important;
-    border: 1px solid rgba(255,255,255,0.15) !important;
-    border-radius: 10px !important;
-    color: white !important;
+    background: #1a1a1a !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 8px !important;
+    color: #f1f1f1 !important;
+    font-size: 0.9rem !important;
+}
+.stSelectbox > div > div:hover,
+.stNumberInput > div > div > input:focus {
+    border-color: #7c3aed !important;
 }
 
-/* Predict button */
+/* ── Predict button ── */
 .stButton > button {
     width: 100%;
-    background: linear-gradient(90deg, #6c63ff, #a78bfa) !important;
+    background: #7c3aed !important;
     color: white !important;
     border: none !important;
-    border-radius: 12px !important;
-    padding: 14px 0 !important;
-    font-size: 1rem !important;
+    border-radius: 10px !important;
+    padding: 13px 0 !important;
+    font-size: 0.95rem !important;
     font-weight: 600 !important;
     letter-spacing: 0.3px;
-    transition: opacity 0.2s;
+    transition: background 0.2s, transform 0.1s;
     margin-top: 8px;
 }
-.stButton > button:hover { opacity: 0.88; }
+.stButton > button:hover {
+    background: #6d28d9 !important;
+    transform: translateY(-1px);
+}
+.stButton > button:active {
+    transform: translateY(0);
+}
 
-/* Result card */
+/* ── Result card ── */
 .result-card {
-    background: linear-gradient(135deg, rgba(108,99,255,0.25), rgba(167,139,250,0.15));
-    border: 1px solid rgba(108,99,255,0.5);
-    border-radius: 20px;
-    padding: 32px;
+    background: #111111;
+    border: 1px solid #2a2a2a;
+    border-left: 3px solid #7c3aed;
+    border-radius: 14px;
+    padding: 32px 28px;
     text-align: center;
-    backdrop-filter: blur(12px);
-    margin-top: 8px;
-    animation: fadeUp 0.4s ease;
+    margin-top: 12px;
+    animation: fadeUp 0.35s ease;
 }
 @keyframes fadeUp {
-    from { opacity:0; transform:translateY(12px); }
-    to   { opacity:1; transform:translateY(0); }
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
-.result-card .label {
-    color: rgba(255,255,255,0.6);
-    font-size: 0.85rem;
-    font-weight: 500;
+.result-card .rlabel {
+    color: #6b7280;
+    font-size: 0.7rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
 }
 .result-card .salary {
-    color: #ffffff;
-    font-size: 3rem;
+    color: #f1f1f1;
+    font-size: 3.2rem;
     font-weight: 700;
-    letter-spacing: -1px;
-    line-height: 1.1;
+    letter-spacing: -1.5px;
+    line-height: 1;
 }
-.result-card .rmse-note {
-    color: rgba(255,255,255,0.45);
+.result-card .model-note {
+    color: #6b7280;
     font-size: 0.78rem;
-    margin-top: 10px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #1f1f1f;
+}
+.result-card .model-note strong {
+    color: #a78bfa;
 }
 
-/* Info pills */
-.pill-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 12px;
-    justify-content: center;
-}
-.pill {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.7);
-    font-size: 0.76rem;
-    padding: 5px 14px;
-    border-radius: 20px;
-}
-
-/* Error */
+/* ── Error box ── */
 .err-box {
-    background: rgba(239,68,68,0.15);
-    border: 1px solid rgba(239,68,68,0.4);
-    border-radius: 12px;
+    background: #1a0a0a;
+    border: 1px solid #4b1111;
+    border-radius: 10px;
     padding: 16px 20px;
-    color: #fca5a5;
+    color: #f87171;
     font-size: 0.88rem;
 }
 
-/* Footer */
+/* ── Footer ── */
 .footer {
     text-align: center;
-    color: rgba(255,255,255,0.3);
-    font-size: 0.75rem;
-    margin-top: 40px;
-    padding-bottom: 20px;
+    color: #3f3f46;
+    font-size: 0.72rem;
+    margin-top: 48px;
+    padding-bottom: 24px;
+    border-top: 1px solid #1a1a1a;
+    padding-top: 20px;
+}
+
+/* ── Metric overrides ── */
+[data-testid="metric-container"] {
+    background: #111111;
+    border: 1px solid #1f1f1f;
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+[data-testid="stMetricLabel"] {
+    color: #6b7280 !important;
+    font-size: 0.7rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+[data-testid="stMetricValue"] {
+    color: #f1f1f1 !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -262,14 +303,16 @@ model = load_model()
 
 # ── Header ─────────────────────────────────────────────────────────────────────
 st.markdown("""
-<div class="header-card">
+<div class="header-wrap">
     <h1>💼 Salary Predictor</h1>
-    <p class="subtitle">Predict employee salary using machine learning</p>
-    <span class="badge">Assignment 3 — Task 2 &nbsp;|&nbsp; AIC354 Machine Learning</span>
-    <div class="pill-row">
-        <span class="pill">👤 M. Asad Awan</span>
-        <span class="pill">🎓 FA24-BSE-073</span>
-        <span class="pill">🏛️ COMSATS University, Lahore</span>
+    <p class="sub">Predict employee salary using machine learning</p>
+    <div class="badge-row">
+        <span class="badge accent">Assignment 3 — Task 2 &nbsp;|&nbsp; AIC354 Machine Learning</span>
+    </div>
+    <div class="badge-row" style="margin-top:8px;">
+        <span class="badge">👤 M. Asad Awan</span>
+        <span class="badge">🎓 FA24-BSE-073</span>
+        <span class="badge">🏛️ COMSATS University, Lahore</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -279,14 +322,15 @@ if model is None:
     st.markdown("""
     <div class="err-box">
         ⚠️ <strong>Model file not found.</strong><br>
-        Run the notebook on Google Colab to generate
-        <code>salary_model_full_dataset.pkl</code>, then add it to this repo and redeploy.
+        Run the notebook to generate <code>salary_model_full_dataset.pkl</code>,
+        then add it to this repo and redeploy.
     </div>
     """, unsafe_allow_html=True)
     st.stop()
 
 # ── Input Form ─────────────────────────────────────────────────────────────────
-st.markdown('<div class="form-card"><h3>🧑‍💼 Enter Employee Profile</h3>', unsafe_allow_html=True)
+st.markdown('<p class="section-label">Employee Profile</p>', unsafe_allow_html=True)
+st.markdown('<div class="form-panel">', unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
 
@@ -307,7 +351,7 @@ with col2:
 st.markdown("</div>", unsafe_allow_html=True)
 
 # ── Predict ────────────────────────────────────────────────────────────────────
-predict_clicked = st.button("🔮 Predict Salary")
+predict_clicked = st.button("Predict Salary →")
 
 if predict_clicked:
     input_data = pd.DataFrame([{
@@ -318,26 +362,24 @@ if predict_clicked:
         "Job Title"           : job_title,
     }])
 
-    # Column order must match training
     input_data = input_data[["Age", "Years of Experience", "Gender", "Education Level", "Job Title"]]
 
     predicted = model.predict(input_data)[0]
-    predicted = max(predicted, 0)  # guard against negative predictions
+    predicted = max(predicted, 0)
 
     algo_name = model.named_steps["regressor"].__class__.__name__
 
     st.markdown(f"""
     <div class="result-card">
-        <div class="label">Predicted Annual Salary</div>
+        <div class="rlabel">Predicted Annual Salary</div>
         <div class="salary">${predicted:,.0f}</div>
-        <div class="rmse-note">
+        <div class="model-note">
             Model: <strong>{algo_name}</strong> &nbsp;·&nbsp;
             Evaluated with 10-Fold Cross Validation on the full dataset
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Summary sidebar-style details
     st.markdown("<br>", unsafe_allow_html=True)
     c1, c2, c3 = st.columns(3)
     c1.metric("Age", age)
@@ -347,7 +389,7 @@ if predict_clicked:
 # ── Footer ─────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="footer">
-    Built with Streamlit &nbsp;·&nbsp; ML Model: Ridge / Lasso / ElasticNet / SVR / MLP &nbsp;·&nbsp; 10-Fold CV
-    <br>M. Asad Awan &nbsp;|&nbsp; FA24-BSE-073 &nbsp;|&nbsp; COMSATS University Islamabad, Lahore Campus
+    Built with Streamlit &nbsp;·&nbsp; Model: Ridge / Lasso / ElasticNet / SVR / MLP &nbsp;·&nbsp; 10-Fold CV<br>
+    M. Asad Awan &nbsp;|&nbsp; FA24-BSE-073 &nbsp;|&nbsp; COMSATS University Islamabad, Lahore Campus
 </div>
 """, unsafe_allow_html=True)
